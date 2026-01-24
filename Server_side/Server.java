@@ -1,5 +1,7 @@
+package Server_side;   
 import java.net.*;
 import java.io.*;
+import Calculator.Calculator;
 public class Server {
     private Socket socket;
     private ServerSocket server;
