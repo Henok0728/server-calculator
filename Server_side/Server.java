@@ -45,27 +45,7 @@ public class Server {
         catch(IOException e){System.out.println(e);}
 
         }
-        public double calculate(int n1, int n2, char op){
-            Calculator calc = new Calculator();
-            double result = 0;
-            switch(op){
-                case '+':
-                    result = calc.add(n1,n2);
-                    break;
-                case '-':
-                    result = calc.sub(n1,n2);
-                    break;
-                case '*':
-                    result = calc.mult(n1,n2);
-                    break;
-                case '/':
-                    result = calc.div(n1,n2);
-                    break;
-                default:
-                    System.out.println("invalid operation");
-            }
-            return result;
-        }
+        
         public static void main(String args[]){
             Server server = new Server(8080);
         }
