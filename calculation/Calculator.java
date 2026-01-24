@@ -1,12 +1,13 @@
-package socketpro;
+import java.io.*;
+import java.lang.ArithmeticException;
 interface operations{
     double add (double a , double b);
     double sub (double a , double b);
     double mult(double a, double b);
     double div (double a , double b);
 }
-public class calculator implements operations{
-    public calculator(){
+public class Calculator implements operations{
+    public Calculator(){
     }
     @Override
     public double add(double a , double b){
@@ -22,11 +23,15 @@ public class calculator implements operations{
     }
     @Override
     public double div(double a, double b){
-        if (b==0){
-            throw new ArithmeticException();
+        try{
+            double result = (double) a / b;
+            return result;
         }
-        double result = (double) a / b;
-        return result;
+        catch(ArithmeticException e){
+            throw new ArithmeticException("Divison by zero is not allowed");
+        }
+
+       
     }
     
 }
