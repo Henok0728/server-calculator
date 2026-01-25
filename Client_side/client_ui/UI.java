@@ -21,18 +21,25 @@ public class UI extends JFrame implements UIComponents{
 
     public UI(){
     this.setTitle("Calculator Client");
-    this.setSize(400,500);
+    this.setSize(500,500);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setVisible(true);
     this.setLayout(new GridLayout(2,1));
-    
+    // this.setResizable(false);
+
+
     inputArea = new JTextArea();
+    inputArea.setLineWrap(true);
+    inputArea.setBackground(Color.LIGHT_GRAY);
     outputArea = new JTextArea();
+    outputArea.setLineWrap(true);
+    outputArea.setEditable(false);
+    outputArea.setBackground(Color.LIGHT_GRAY);
     sendButton = new JButton("Send");
-    button.setSize(100,50);
+    sendButton.setSize(100,50);
 
     panelText = new JPanel();
-    panelText.setLayout(new GridLayout(1,2));
+    panelText.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
     panelText.add(inputArea);
     panelText.add(outputArea);
 
