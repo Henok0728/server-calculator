@@ -3,6 +3,11 @@ package Client_side.client_ui;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import java.io.*;
+import java.lang.*;
+import java.net.*;
+import Client_side.Client;
+
 import java.awt.event.*;
 
 public class UI extends JFrame implements ActionListener {
@@ -10,6 +15,8 @@ public class UI extends JFrame implements ActionListener {
     private JButton sendButton;
     private JTextArea inputArea;
     private JTextArea displayArea;
+    private JOptionPane messageBox;
+
 
     public UI() {
         this.setTitle("Client Calculator");
@@ -54,6 +61,19 @@ public class UI extends JFrame implements ActionListener {
         this.setSize(500,500);
         this.setResizable(false);
     }
+    public void implementation(String message){
+        try{
+            Client client = new Client("127.0.0.1",8080);
+            String response = client.sendAndReceiveData(message);
+            displayArea.append("Server: " + response + "\n");
+            client.close(); 
+        }
+        catch (IOException e){
+            JOptionPane.showMessageDialog(this, "Unable to connect to server: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == sendButton) {
@@ -61,7 +81,9 @@ public class UI extends JFrame implements ActionListener {
             if (!inputText.isEmpty()) {
                 displayArea.append("You: " + inputText + "\n");
                 inputArea.setText("");
+                implementation(inputText);
             }
+            
         }
     }
     public static void main(String[] args) {
