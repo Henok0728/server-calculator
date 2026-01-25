@@ -13,12 +13,20 @@ import java.awt.event.*;
 public class UI extends JFrame implements ActionListener {
 
     private JButton sendButton;
+    private JButton closeButton;
     private JTextArea inputArea;
     private JTextArea displayArea;
-   
-
+    private Client client;
+    
 
     public UI() {
+        try{
+            this.client = new Client("127.0.0.1",8080);
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(this, "Unable to connect to server: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
+
+        }
         this.setTitle("Client Calculator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(10, 10));
@@ -42,16 +50,33 @@ public class UI extends JFrame implements ActionListener {
         inputArea = new JTextArea(4, 30);
         inputArea.setLineWrap(true);
         inputArea.setWrapStyleWord(true);
+        inputArea.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                e.consume();
+                String text = inputArea.getText();
+                if (!text.trim().isEmpty()) {
+                    displayArea.append("You: " + text.trim() + "\n");
+                    implementation(text.trim());
+                }
+                inputArea.setText("");
+            }
+        }
+    });
 
         JScrollPane inputScroll = new JScrollPane(inputArea);
 
         sendButton = new JButton("Send");
+        closeButton = new JButton("CloseConnection");
         sendButton.addActionListener(this);
+        closeButton.addActionListener(this);
 
         JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
         inputPanel.setBorder(new TitledBorder("Input Area"));
         inputPanel.add(inputScroll, BorderLayout.CENTER);
         inputPanel.add(sendButton, BorderLayout.EAST);
+        inputPanel.add(closeButton, BorderLayout.WEST);
 
         add(inputPanel, BorderLayout.SOUTH);
 
@@ -63,10 +88,10 @@ public class UI extends JFrame implements ActionListener {
     }
     public void implementation(String message){
         try{
-            Client client = new Client("127.0.0.1",8080);
+           
             String response = client.sendAndReceiveData(message);
             displayArea.append("Server: " + response + "\n");
-            client.close(); 
+            
         }
         catch (IOException e){
             JOptionPane.showMessageDialog(this, "Unable to connect to server: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
@@ -83,7 +108,16 @@ public class UI extends JFrame implements ActionListener {
                 inputArea.setText("");
                 implementation(inputText);
             }
-
+        }
+        else if (e.getSource() == closeButton){
+            try{
+                client.close();
+                displayArea.append("Connection closed.\n");
+            }
+            catch (IOException ex){
+                JOptionPane.showMessageDialog(this, "Error closing connection: " + ex.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
     }
     public static void main(String[] args) {
