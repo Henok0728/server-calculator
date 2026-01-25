@@ -12,11 +12,11 @@ public class Server {
     private DataOutputStream out;
     public Server(int port){
         try{
-            server = new ServerSocket(port);
+          
             Calculator calc = new Calculator();
             System.out.println("server started");
             System.out.println("Waiting for the client........");
-
+            server = new ServerSocket(port);
             socket = server.accept();
             System.out.println("client accepted");
            
@@ -26,9 +26,9 @@ public class Server {
             while(true){
                 try{
                     line = in.readUTF().split("\\s+");
-                    int n1 = Integer.parseInt(line[0]);
+                    double n1 = Double.parseDouble(line[0]);
                     char op = line[1].charAt(0);
-                    int n2 = Integer.parseInt(line[2]);
+                    double n2 = Double.parseDouble(line[2]);
                     Number result = calc.calculate(n1,n2,op);
                     System.out.println("client says: "+n1+" "+op+" "+n2);
                     out.writeUTF("result is: "+result);

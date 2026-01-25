@@ -1,58 +1,54 @@
 package Client_side.client_ui;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.border.*;
-import javax.swing.text.*;
 
+public class UI extends JFrame {
 
-interface UIComponents{
-    JButton sendButton = new JButton("Send");
-    JTextArea inputArea = new JTextArea();
-    JTextArea outputArea = new JTextArea();
-}
-
-public class UI extends JFrame implements UIComponents{
     private JButton sendButton;
     private JTextArea inputArea;
-    private JTextArea outputArea;
-    private JPanel panelText;
-    private JPanel ButtonPanel;
+    private JTextArea displayArea;
 
-    public UI(){
-    this.setTitle("Calculator Client");
-    this.setSize(500,500);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setVisible(true);
-    this.setLayout(new GridLayout(2,1));
-    // this.setResizable(false);
+    public UI() {
+        setTitle("Client Calculator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
 
+        // Display area (output)
+        displayArea = new JTextArea();
+        displayArea.setEditable(false);
+        displayArea.setLineWrap(true);
+        displayArea.setWrapStyleWord(true);
+        displayArea.setBorder(new TitledBorder("Display Area"));
 
-    inputArea = new JTextArea();
-    inputArea.setLineWrap(true);
-    inputArea.setBackground(Color.LIGHT_GRAY);
-    outputArea = new JTextArea();
-    outputArea.setLineWrap(true);
-    outputArea.setEditable(false);
-    outputArea.setBackground(Color.LIGHT_GRAY);
-    sendButton = new JButton("Send");
-    sendButton.setSize(100,50);
+        JScrollPane displayScroll = new JScrollPane(displayArea);
+        add(displayScroll, BorderLayout.CENTER);
 
-    panelText = new JPanel();
-    panelText.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-    panelText.add(inputArea);
-    panelText.add(outputArea);
+        // Input area
+        inputArea = new JTextArea(4, 30);
+        inputArea.setLineWrap(true);
+        inputArea.setWrapStyleWord(true);
 
-    ButtonPanel = new JPanel();
-    ButtonPanel.add(sendButton);
-    ButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JScrollPane inputScroll = new JScrollPane(inputArea);
 
+        sendButton = new JButton("Send");
 
-    this.add(panelText);
-    this.add(ButtonPanel);
+        JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
+        inputPanel.setBorder(new TitledBorder("Input Area"));
+        inputPanel.add(inputScroll, BorderLayout.CENTER);
+        inputPanel.add(sendButton, BorderLayout.EAST);
+
+        add(inputPanel, BorderLayout.SOUTH);
+
+        pack();              // Let layout decide size
+        setLocationRelativeTo(null); // Center window
+        setVisible(true);
+        setSize(500,500);
+        setResizable(false);
     }
 
-public static void main(String args[]){
-    new UI();
-}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(UI::new);
+    }
 }
