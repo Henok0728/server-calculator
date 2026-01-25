@@ -78,7 +78,7 @@ public class Calculator implements operations{
         return this.result;
     }
     @Override
-    public  Number calculate(Number n1, Number n2, char op){
+    public Number calculate(Number n1, Number n2, char op){
         return switch(op){
             case '+' -> add(n1,n2);
             case '-' -> sub(n1,n2);

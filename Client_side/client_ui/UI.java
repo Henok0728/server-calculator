@@ -11,9 +11,7 @@ import Client_side.Client;
 import java.awt.event.*;
 
 public class UI extends JFrame implements ActionListener {
-
-    private JButton sendButton;
-    private JButton closeButton;
+    private JButton[] buttons;
     private JTextArea inputArea;
     private JTextArea displayArea;
     private Client client;
@@ -66,17 +64,26 @@ public class UI extends JFrame implements ActionListener {
     });
 
         JScrollPane inputScroll = new JScrollPane(inputArea);
-
-        sendButton = new JButton("Send");
-        closeButton = new JButton("CloseConnection");
-        sendButton.addActionListener(this);
-        closeButton.addActionListener(this);
+        
+        buttons = new JButton[2];
+        buttons[0] = new JButton("Send");
+        buttons[1] = new JButton("CloseConnection");
+        
+    
+        for (JButton button: buttons){
+            button.addActionListener(this);
+            button.setFocusable(false);
+            button.setFont(new Font("monospace", Font.BOLD, 12));
+            button.setBackground(new Color(12, 237, 237));
+            button.setForeground(Color.BLACK);
+        }
+        
 
         JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
         inputPanel.setBorder(new TitledBorder("Input Area"));
         inputPanel.add(inputScroll, BorderLayout.CENTER);
-        inputPanel.add(sendButton, BorderLayout.EAST);
-        inputPanel.add(closeButton, BorderLayout.WEST);
+        inputPanel.add(buttons[0], BorderLayout.EAST);
+        inputPanel.add(buttons[1], BorderLayout.WEST);
 
         add(inputPanel, BorderLayout.SOUTH);
 
@@ -97,11 +104,15 @@ public class UI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Unable to connect to server: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "UNEXPECTED ERROR: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
             
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == sendButton) {
+        if (e.getSource() == buttons[0]) {
             String inputText = inputArea.getText().trim();
             if (!inputText.isEmpty()) {
                 displayArea.append("You: " + inputText + "\n");
@@ -109,14 +120,16 @@ public class UI extends JFrame implements ActionListener {
                 implementation(inputText);
             }
         }
-        else if (e.getSource() == closeButton){
+        else if (e.getSource() == buttons[1]){
             try{
                 client.close();
                 displayArea.append("Connection closed.\n");
             }
             catch (IOException ex){
                 JOptionPane.showMessageDialog(this, "Error closing connection: " + ex.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            }
+            catch (Exception ey){
+                JOptionPane.showMessageDialog(this, "UNEXPECTED ERROR: " + ey.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

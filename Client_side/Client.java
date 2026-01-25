@@ -3,8 +3,8 @@ package Client_side;
 import java.net.*;
 import java.io.*;
 
-public class Client {
 
+public class Client implements Runnable{
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
