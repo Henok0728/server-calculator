@@ -34,6 +34,11 @@ public class Server {
                     out.writeUTF("result is: "+result);
                     out.flush();
                 }
+                catch(NumberFormatException e){
+                    System.out.println("Invalid number format received from client.");
+                    out.writeUTF("Error: Invalid number format.");
+                    out.flush();
+                }
                 catch(IOException e){
                     System.out.println(e);
                     break;
