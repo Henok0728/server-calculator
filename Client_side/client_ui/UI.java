@@ -11,9 +11,9 @@ public class UI extends JFrame {
     private JTextArea displayArea;
 
     public UI() {
-        setTitle("Client Calculator");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
+        this.setTitle("Client Calculator");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout(10, 10));
 
         // Display area (output)
         displayArea = new JTextArea();
@@ -41,11 +41,11 @@ public class UI extends JFrame {
 
         add(inputPanel, BorderLayout.SOUTH);
 
-        pack();              // Let layout decide size
-        setLocationRelativeTo(null); // Center window
-        setVisible(true);
-        setSize(500,500);
-        setResizable(false);
+        this.pack();              // Let layout decide size
+        this.setLocationRelativeTo(null); // Center window
+        this.setVisible(true);
+        this.setSize(500,500);
+        this.setResizable(false);
     }
 
     public static void main(String[] args) {
