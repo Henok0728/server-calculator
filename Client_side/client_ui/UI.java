@@ -3,8 +3,9 @@ package Client_side.client_ui;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import java.awt.event.*;
 
-public class UI extends JFrame {
+public class UI extends JFrame implements ActionListener {
 
     private JButton sendButton;
     private JTextArea inputArea;
@@ -20,6 +21,11 @@ public class UI extends JFrame {
         displayArea.setEditable(false);
         displayArea.setLineWrap(true);
         displayArea.setWrapStyleWord(true);
+        displayArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        displayArea.setBackground(Color.BLACK);
+        displayArea.setForeground(Color.GREEN);
+        displayArea.setFocusable(false);
+      
         displayArea.setBorder(new TitledBorder("Display Area"));
 
         JScrollPane displayScroll = new JScrollPane(displayArea);
@@ -33,6 +39,7 @@ public class UI extends JFrame {
         JScrollPane inputScroll = new JScrollPane(inputArea);
 
         sendButton = new JButton("Send");
+        sendButton.addActionListener(this);
 
         JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
         inputPanel.setBorder(new TitledBorder("Input Area"));
@@ -47,7 +54,16 @@ public class UI extends JFrame {
         this.setSize(500,500);
         this.setResizable(false);
     }
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == sendButton) {
+            String inputText = inputArea.getText().trim();
+            if (!inputText.isEmpty()) {
+                displayArea.append("You: " + inputText + "\n");
+                inputArea.setText("");
+            }
+        }
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(UI::new);
     }
