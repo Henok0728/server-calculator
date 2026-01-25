@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import java.io.*;
-import java.lang.*;
-import java.net.*;
+
+
 import Client_side.Client;
 
 import java.awt.event.*;
@@ -15,7 +15,7 @@ public class UI extends JFrame implements ActionListener {
     private JButton sendButton;
     private JTextArea inputArea;
     private JTextArea displayArea;
-    private JOptionPane messageBox;
+   
 
 
     public UI() {
@@ -83,7 +83,7 @@ public class UI extends JFrame implements ActionListener {
                 inputArea.setText("");
                 implementation(inputText);
             }
-            
+
         }
     }
     public static void main(String[] args) {
