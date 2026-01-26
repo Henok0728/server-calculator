@@ -87,8 +87,8 @@ public class UI extends JFrame implements ActionListener {
 
         add(inputPanel, BorderLayout.SOUTH);
 
-        this.pack();              // Let layout decide size
-        this.setLocationRelativeTo(null); // Center window
+        this.pack();              
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setSize(500,500);
         this.setResizable(false);

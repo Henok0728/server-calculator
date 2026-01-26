@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 
-public class Client implements Runnable{
+public class Client{
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;

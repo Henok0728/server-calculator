@@ -1,38 +1,45 @@
-package Server_side;   
+package Server_side;
+
 import java.net.*;
 import java.io.*;
 
-
-
-
 public class Server {
-    private Socket socket;
+
     private ServerSocket server;
     private boolean running;
 
-    
-    public Server (int port){
-
+    public Server(int port) {
         running = true;
-        
-        try{
-            while (running){
+
+        try {
             server = new ServerSocket(port);
-            System.out.println("server started on port: "+port);
-            System.out.println("Waiting for the client........");
-            socket = server.accept();
-            System.out.println("New client connected"); 
-            new ClientHandle(socket).start();   
+            System.out.println("Server started on port: " + port);
+
+            while (running) {
+                System.out.println("Waiting for client...");
+                Socket socket = server.accept(); // blocks here
+                System.out.println("New client connected: " + socket.getInetAddress());
+
+                new ClientHandle(socket).start(); // thread per client
             }
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-           
-}
-        public static void main(String args[]){
-            new Server(8080);
+
+        } catch (IOException e) {
+            System.out.println("Server error: " + e.getMessage());
+        } finally {
+            stopServer();
         }
     }
-    
 
+    private void stopServer() {
+        try {
+            if (server != null) server.close();
+            System.out.println("Server stopped.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        new Server(8080);
+    }
+}
