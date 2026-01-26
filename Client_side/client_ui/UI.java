@@ -15,6 +15,7 @@ public class UI extends JFrame implements ActionListener {
     private JTextArea inputArea;
     private JTextArea displayArea;
     private Client client;
+    private ImageIcon icon;
     
 
     public UI() {
@@ -28,6 +29,12 @@ public class UI extends JFrame implements ActionListener {
         this.setTitle("Client Calculator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(10, 10));
+
+
+        this.icon = new ImageIcon("favicon/logo.png");
+        Image image = icon.getImage();
+
+        this.setIconImage(image);
 
         // Display area (output)
         displayArea = new JTextArea();
