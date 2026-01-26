@@ -23,7 +23,7 @@ public class ClientHandle extends Thread {
             out = new DataOutputStream(socket.getOutputStream());
 
             while (true) {
-                String input = in.readUTF(); // blocks here
+                String input = in.readUTF(); 
                 String[] parts = input.split("\\s+");
 
                 if (parts.length != 3) {

@@ -17,10 +17,10 @@ public class Server {
 
             while (running) {
                 System.out.println("Waiting for client...");
-                Socket socket = server.accept(); // blocks here
+                Socket socket = server.accept(); 
                 System.out.println("New client connected: " + socket.getInetAddress());
 
-                new ClientHandle(socket).start(); // thread per client
+                new ClientHandle(socket).start(); 
             }
 
         } catch (IOException e) {
