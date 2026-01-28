@@ -1,4 +1,4 @@
-package Client_side;
+package java_project_client.src.main.java.com.Client_side;
 
 import java.net.*;
 import java.io.*;
