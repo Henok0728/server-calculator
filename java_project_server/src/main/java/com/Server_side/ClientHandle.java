@@ -1,8 +1,8 @@
-package Server_side;
+package com.Server_side;
 
 import java.net.*;
 
-import Server_side.Implementation_side.Calculator;
+import com.Server_side.Implementation_side.Calculator;
 
 import java.io.*;
 

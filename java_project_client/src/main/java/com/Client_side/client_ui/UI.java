@@ -1,4 +1,4 @@
-package java_project_client.src.main.java.com.Client_side.client_ui;
+package com.Client_side.client_ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import javax.swing.border.*;
 import java.io.*;
 
 
-import java_project_client.src.main.java.com.Client_side.Client;
+import com.Client_side.Client;
 
 import java.awt.event.*;
 

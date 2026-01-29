@@ -1,8 +1,7 @@
-package Server_side;
+package com.Server_side;
 
 import java.net.*;
 import java.io.*;
-
 public class Server {
 
     private ServerSocket server;
@@ -19,7 +18,6 @@ public class Server {
                 System.out.println("Waiting for client...");
                 Socket socket = server.accept(); 
                 System.out.println("New client connected: " + socket.getInetAddress());
-
                 new ClientHandle(socket).start(); 
             }
 
